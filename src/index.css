@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pointer-events-none {
+  display: none;
+}
+.custom-placeholder {
+  color: rgba(0, 0, 0, 0.849);
+}
+.blog-img img {
+  max-height: 300px;
+}
+.ql-editor {
+  overflow: hidden;
+}
+.ql-editor img {
+  height: 300px;
+}
+
+img {
+  max-height: 300px;
+}
+
+.peer {
+  color: rgba(0, 0, 0, 0.89) !important;
+  height: 40px;
+  padding-left: 10px;
+}
+
+/* Add this CSS in your global styles or within a <style> tag */
+.preview-content h1, .preview-content h2, .preview-content h3 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.preview-content h4, .preview-content h5, .preview-content h6 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.preview-content p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.preview-content b {
+  font-weight: bold;
+}
+
+.preview-content i {
+  font-style: italic;
+}
+
