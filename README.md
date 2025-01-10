@@ -13,11 +13,10 @@ Make sure you have the following installed:
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/Favazahammedck/BlogNest.git
+git clone https://github.com/Favazahammedck/BlogNest.git
 Navigate into the project directory:
 
-cd your-repo-name
+cd BlogNest
 Install the required dependencies:
 
 npm install
@@ -26,4 +25,4 @@ To start the development server and run the project locally, use the following c
 
 npm run dev
 
-Netlify link :
+Netlify link :https://blog-nest-blogmanagement.netlify.app/
