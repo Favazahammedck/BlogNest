@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TEInput, TERipple } from "tw-elements-react";
 import { useNavigate } from "react-router-dom";
-import BlogIcon from "../assets/images/blog.webp";
+import BlogIcon from "../assets/images/blog-register.webp";
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });

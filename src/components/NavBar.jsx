@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
 import Logo from "../assets/images/logo.webp";
-export default function NavBar({ setSearchQuery, setSortOrder }) {
+import { useBlogContext } from "../context/BlogContext";
+
+export default function NavBar({ setSearchQuery, setSortOrder, setCategory }) {
   const [openNav, setOpenNav] = useState(false);
   const [placeholderText, setPlaceholderText] = useState("title");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const { posts } = useBlogContext();
+
   const navigate = useNavigate();
 
   const handleRegister = () => {
@@ -12,7 +18,7 @@ export default function NavBar({ setSearchQuery, setSortOrder }) {
   };
 
   useEffect(() => {
-    const texts = ["title...", "tags..."];
+    const texts = ["title...", "categories...", "tags..."];
     let index = 0;
     const interval = setInterval(() => {
       index = (index + 1) % texts.length;
@@ -30,10 +36,24 @@ export default function NavBar({ setSearchQuery, setSortOrder }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    // Extract unique categories from posts
+    if (posts && posts.length) {
+      const uniqueCategories = [...new Set(posts.map(post => post.category))];
+      setCategories(uniqueCategories);
+    }
+  }, [posts]);
+
+  const handleCategoryChange = (e) => {
+    const category = e.target.value;
+    setSelectedCategory(category);
+    setCategory(category); // Update the category for filtering blogs
+  };
+
   return (
     <nav className="mx-full px-4 py-2 lg:px-8 lg:py-4 bg-white shadow">
       <div className="flex items-center justify-between text-blue-gray-900">
-        <a href="#" className="mr-4 cursor-pointer py-1.5 font-medium">
+        <a href="/" className="mr-4 cursor-pointer py-1.5 font-medium">
           <img className="h-[60px] w-[130px]" src={Logo} />
         </a>
 
@@ -57,8 +77,21 @@ export default function NavBar({ setSearchQuery, setSortOrder }) {
         <div className="hidden lg:flex items-center gap-4">
           <div className="relative">
             <select
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              className="border border-gray-300 px-4 py-2 rounded-md mr-2"
+            >
+              <option value="">All Categories</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+
+            <select
               onChange={(e) => setSortOrder(e.target.value)}
-              className="border border-gray-300 px-4 py-2 rounded-sm"
+              className="border border-gray-300 px-4 py-2 rounded-md"
             >
               <option value="latest">Date Published: Latest</option>
               <option value="oldest">Date Published: Oldest</option>
@@ -71,6 +104,7 @@ export default function NavBar({ setSearchQuery, setSortOrder }) {
             Register/Login As Blog Author
           </button>
         </div>
+
         <button className="lg:hidden p-2" onClick={() => setOpenNav(!openNav)}>
           {openNav ? (
             <svg
@@ -119,9 +153,21 @@ export default function NavBar({ setSearchQuery, setSortOrder }) {
             </button>
           </div>
           <div className="mt-4 flex flex-col items-start gap-2">
+          <select
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              className="border border-gray-300 px-4 py-2 rounded-md w-full"
+            >
+              <option value="">All Categories</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
             <select
               onChange={(e) => setSortOrder(e.target.value)}
-              className="border border-gray-300 px-4 py-2 rounded-sm w-full"
+              className="border border-gray-300 px-4 py-2 rounded-md w-full"
             >
               <option value="latest">Date Published: Latest</option>
               <option value="oldest">Date Published: Oldest</option>

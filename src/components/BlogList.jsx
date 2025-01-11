@@ -49,6 +49,8 @@ const BlogList = () => {
           transition={{ delay: index * 0.1 }}
           className="bg-white p-5 rounded shadow-md mb-5"
         >
+          <p className="text-sm text-gray-600 text-end">Category: {post.category}</p>
+
           <h2 className="text-2xl text-gray-800">{post.title}</h2>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
           <p className="text-sm text-gray-600 text-end">
